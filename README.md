@@ -2,7 +2,8 @@
 
 # Getting Started
 
-Install [OpenJDK](https://github.com/AdoptOpenJDK/homebrew-openjdk) `brew cask install adoptopenjdk`
+Install [OpenJDK](https://github.com/AdoptOpenJDK/homebrew-openjdk) `brew cask
+install adoptopenjdk8 adoptopenjdk8-jre`
 
 Install [Leiningen](https://leiningen.org/) Which is a build tool. Then start a
 new project with:
