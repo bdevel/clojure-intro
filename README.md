@@ -1,7 +1,8 @@
 
 
-# Getting Started
+# Intro To Clojure
 
+### Setup
 Install [OpenJDK](https://github.com/AdoptOpenJDK/homebrew-openjdk) `brew cask install adoptopenjdk`
 
 Install a Clojure build tool, [Leiningen](https://leiningen.org/) with `brew install leiningen` for mac. Then start a
@@ -21,6 +22,9 @@ and follow [guide simple apps](https://clojure.org/guides/deps_and_cli)
 
 Best and easiest editor to use is [VSCode with Calva](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva)
 
+### Start Learning
+* Start with the [intro.clj language demonstration](basics/src/basics/intro.clj)
+* Then check out the  [web demo with Re-Frame](web-demo/)
 
 ## LISP History
 John McCarthy developed Lisp in 1958 and is the second-oldest high-level programming
@@ -69,6 +73,8 @@ Clojure designed by	Rich Hickey in 2007. Clojure is a functional language with a
 
 
 # Links
+* [Rich Hickey's Greatest Hits
+  Videos](https://changelog.com/posts/rich-hickeys-greatest-hits) - Simple Made Easy being most iconic.
 * [ClojureScript cheatsheet](https://cljs.info/cheatsheet/)
 * [VSCode Calva](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva)
 * [Awesome Clojure](https://github.com/razum2um/awesome-clojure) Curated list of
