@@ -4,11 +4,10 @@
 
 Install [OpenJDK](https://github.com/AdoptOpenJDK/homebrew-openjdk) `brew cask install adoptopenjdk`
 
-Install [Leiningen](https://leiningen.org/) Which is a build tool. Then start a
+Install a Clojure build tool, [Leiningen](https://leiningen.org/) with `brew install leiningen` for mac. Then start a
 new project with:
 
 ``` sh
-brew install leiningen # for mac
 lein new app my-demo
 cd my-demo
 lein run # runs the app
