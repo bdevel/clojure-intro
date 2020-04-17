@@ -81,8 +81,8 @@ Clojure designed by	Rich Hickey in 2007. Clojure is a functional language with a
   libraries
 * [HTML with Hiccup, Syntax](https://github.com/weavejester/hiccup/wiki/Syntax)
 * [CSS with Garden](https://github.com/noprompt/garden#syntax)
-* [Graal interop](http://gigasquidsoftware.com/blog/2017/10/22/embedded-interop-between-clojure-r-and-python-with-graalvm/)
-* [Python Interop](https://github.com/clj-python/libpython-clj)
-* [PyPlot Tutorial](http://gigasquidsoftware.com/blog/2020/01/18/parens-for-pyplot/)
-* [NLP with Python interop](http://gigasquidsoftware.com/blog/2020/01/24/clojure-interop-with-python-nlp-libraries/)
+* [Graal
+  interop](http://gigasquidsoftware.com/blog/2017/10/22/embedded-interop-between-clojure-r-and-python-with-graalvm/)
+  with R and Python
+* [libpython-clj Interop](https://github.com/clj-python/libpython-clj), [PyPlot Tutorial](http://gigasquidsoftware.com/blog/2020/01/18/parens-for-pyplot/), [NLP with Python interop](http://gigasquidsoftware.com/blog/2020/01/24/clojure-interop-with-python-nlp-libraries/)
 * [honeySQL](https://github.com/jkk/honeysql), [Korma SQL](https://github.com/korma/Korma) and [Toucan, ORM like](https://github.com/metabase/toucan)
