@@ -3,6 +3,8 @@
 # Intro To Clojure
 
 ### Setup
+To play with ClojureScript without installing anything use the [online REPL](https://clojurescript.io/).
+
 Install [OpenJDK](https://github.com/AdoptOpenJDK/homebrew-openjdk) `brew cask install adoptopenjdk`
 
 Install a Clojure build tool, [Leiningen](https://leiningen.org/) with `brew install leiningen` for mac. Then start a

@@ -49,7 +49,7 @@ false
 ;;==========================================
 
 ;; C style function call
-;; function(arg1 arg2)
+;; function(arg1, arg2)
 
 ;; Lisp function call
 ;; (function arg1 arg2)
@@ -94,12 +94,16 @@ false
 (or nil 1)
 (or nil false :maybe true)
 
-(or (= 0 1) (= "yes" "no"))
+(or (= 0 1)
+    (= "yes" "no"))
 
 (and :maybe "yes" false)
 
+(= 0 nil)
+(= "" nil)
 
-(if (> age 21)
+(if (or (> age 21)
+        (< age 100))
   "Buy me beer"
   "Buy me water")
 
@@ -122,7 +126,7 @@ false
 
 ;; vectors
 (vector :a :b :c)
-(nth [0 1 2 3] 2)
+(nth [0 1 2 3] 3)
 
 
 ;; different ways to add items to list/vector. Note the return value type.
@@ -163,30 +167,41 @@ false
 
 ;; accessing values
 (get {:name "Bob" :age 42} :name)
-(:name  {:name "Bob" :age 42})
+(:name {:name "Bob" :age 42})
 
-(def user {:name "Bob"
+(def user {:id 123
+           :name "Bob"
            :age 21
            :address {:street "123 Fake"
                      :city "Seattle"}})
+
 (get-in user [:address :city])
 
 (assoc {} :id 123)
 (assoc-in {} [:address :bar] 123)
+(assoc-in user [:address :state] "WA")
+;; user[:address][:state][:asdf]
 
-(def users [{:name "James" :age 26}  {:name "John" :age 43}])
-(assoc-in users [1 :age] 44)
-(assoc-in users [2] {:name "Jack" :age 19})
+(def user-db {123 {:name    "Bob"
+                   :age     21
+                   :address {:street "123 Fake"
+                             :city   "Seattle"}}
+              456 {:name    "Tom"
+                   :age     21
+                   :address {:street "123 Fake"
+                             :city   "Seattle"}}})
 
-(update {:age 10} :age inc)
-(update-in user [:address :city] (constantly "Tacoma"))
+;; Can build the path programatically
+(update-in user-db [(:id user) :age] inc)
 
 
 ;; Threads
 ;; Successively takes result and puts it in first argument of next form
 ;; same as (- (/ (+ 10 2) 2) 1)
+(- (/ (+ 10 2) 2) 1)
+;; ((10 + 2) / 2) - 1
+
 (-> 10
-  (+ 2)
   (/ 2)
   (- 1))
 
@@ -219,6 +234,7 @@ than to have 10 fuctions operate on 10 data structures."
 
 (def human-age 21)
 
+;; not docs
 (defn dog-years
   "Converts human age to dog age."
   [human-yrs]
@@ -240,6 +256,8 @@ than to have 10 fuctions operate on 10 data structures."
 
 ;; Anonymous functions
 
+(fn [x] (+ 6 x))
+
 ;; Equivalent to: (fn [x] (+ 6 x))
 #(+ 6 %)
 
@@ -252,6 +270,7 @@ than to have 10 fuctions operate on 10 data structures."
 ;; Using anonymous functions
 ;; can call fuctions like so
 (#(+ 2 %) 3)
+
 ((fn [v] (+ v 2)) 3)
 
 (map inc [0 1 2])
@@ -295,6 +314,14 @@ than to have 10 fuctions operate on 10 data structures."
   [m]
   (str "SUPER: " (:name m)))
 
+(cond false
+      1
+      false
+      2
+      true
+      3
+      true
+      4)
   
 (label {:type "admin" :name "Bob"})
 (label {:type "super" :name "Sam"})
@@ -314,7 +341,7 @@ x
       address "123 Fake St"
       address (str address " Seattle, WA")]
   {:age age
-  	:dog-age dog-age
+   :dog-age dog-age
   	:address address})
 
 ;; destructuring
@@ -327,16 +354,27 @@ x
 (run! println names)
 (run! #(println "Name: " %) names)
 
+(println "hello")
 (reduce
   (fn [out name]
     (str out "\n  " name))
   names)
 
-(loop [items names
+(let [output (reduce
+               (fn [out name]
+                 (-> out
+                     (update :names conj name)
+                     (update :all str name " == ")))
+               {:names ["existing"]
+                :all   ""}
+               ["bob" "sam" 3]) ]
+  (get output :names))
+
+(loop [items ["Bob" "Tom" "Sam" "Pam"]
        out ""]
   (if items
      (recur (next items)
-             (str out (first items) "\n  "))
+            (str out (first items) " --> "))
      out))
 
 
@@ -357,7 +395,7 @@ x
   (swap! app-state update :success inc))
 
 (defn reboot []
-  (reset app-state {:success 0 :errors 0}))
+  (reset! app-state {:success 0 :errors 0}))
 
 (comment
   (make-dough)
@@ -380,29 +418,48 @@ x
 (backwards (" backwards" " am" "I" str))
 
 
+(defn unless
+  ""
+  [cond & forms]
+  (when cond
+    (println "Forms: " forms)))
+
+(unless true (println "Running!"))
+
+
 (defmacro unless [cnd & forms]
   `(when (not ~cnd) ~@forms))
 
-(unless false 
+(unless (= 1 2)
+  (println "YES!")
+  (println "YES AGAIN!"))
+
+(when (not true)
   (println "YES!")
   (println "YES AGAIN!"))
 
 
-(postwalk #(if (keyword? %) (keyword (name %)) %) thing)
+(when (= 1 1)
+  (println "hello")
+  (println "world"))
 
-
+(if (= 1 1)
+  (do (println "hello")
+      (println "world")))
 
 
 ;; Mutli-threading
 ;; =================================
-(def f (future (Thread/sleep 10000) (println "done") 100))
+(def f (future (Thread/sleep 5000)
+               (println "done")
+               100))
 @f
 
 ;; promise
 (def p (promise))
 (future
-         (Thread/sleep 5000)
-         (deliver p 123))
+  (Thread/sleep 5000)
+  (deliver p 123))
 
 (realized? p)
 (deref p)
